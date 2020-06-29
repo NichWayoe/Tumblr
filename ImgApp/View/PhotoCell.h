@@ -12,6 +12,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PhotoCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *PhotoView;
+@property (weak, nonatomic) IBOutlet UIImageView *sportView;
+@property (weak, nonatomic) IBOutlet UIImageView *profileImage;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *portfolioLabel;
+@property (weak, nonatomic) IBOutlet UILabel *captionLabel;
 
 @end
 

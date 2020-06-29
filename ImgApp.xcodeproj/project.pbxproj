@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -17,6 +17,7 @@
 		2B0FB82E24A54F23007D586A /* ImgAppUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B0FB82D24A54F23007D586A /* ImgAppUITests.m */; };
 		2B0FB84024A54FC4007D586A /* PhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B0FB83F24A54FC4007D586A /* PhotosViewController.m */; };
 		2B0FB84324A554FD007D586A /* PhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B0FB84224A554FD007D586A /* PhotoCell.m */; };
+		2BC46A3324A7EFDC003A950E /* sportsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BC46A3224A7EFDC003A950E /* sportsViewController.m */; };
 		715BE00BACDFD7A74EE31CCA /* Pods_ImgApp_ImgAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B47F8FDC8303E7B5D28745FE /* Pods_ImgApp_ImgAppUITests.framework */; };
 		9A6B08706FEF8D2A79053A9F /* Pods_ImgApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CB955004C3C6D9F6CC94769 /* Pods_ImgApp.framework */; };
 		B399F0381858E1E39350053E /* Pods_ImgAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5436D6958637161A757439C4 /* Pods_ImgAppTests.framework */; };
@@ -61,6 +62,8 @@
 		2B0FB83F24A54FC4007D586A /* PhotosViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotosViewController.m; sourceTree = "<group>"; };
 		2B0FB84124A554FD007D586A /* PhotoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoCell.h; sourceTree = "<group>"; };
 		2B0FB84224A554FD007D586A /* PhotoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoCell.m; sourceTree = "<group>"; };
+		2BC46A3124A7EFDC003A950E /* sportsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sportsViewController.h; sourceTree = "<group>"; };
+		2BC46A3224A7EFDC003A950E /* sportsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = sportsViewController.m; sourceTree = "<group>"; };
 		3CB955004C3C6D9F6CC94769 /* Pods_ImgApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ImgApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		48D2FFA81D776A9C2A33CBCE /* Pods-ImgAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImgAppTests.debug.xcconfig"; path = "Target Support Files/Pods-ImgAppTests/Pods-ImgAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5436D6958637161A757439C4 /* Pods_ImgAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ImgAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -162,6 +165,8 @@
 			children = (
 				2B0FB83E24A54FC4007D586A /* PhotosViewController.h */,
 				2B0FB83F24A54FC4007D586A /* PhotosViewController.m */,
+				2BC46A3124A7EFDC003A950E /* sportsViewController.h */,
+				2BC46A3224A7EFDC003A950E /* sportsViewController.m */,
 			);
 			path = "View Controller";
 			sourceTree = "<group>";
@@ -185,7 +190,6 @@
 				48D2FFA81D776A9C2A33CBCE /* Pods-ImgAppTests.debug.xcconfig */,
 				A2CDF85FFEB40A56BB1A4551 /* Pods-ImgAppTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -438,6 +442,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B0FB80824A54F22007D586A /* AppDelegate.m in Sources */,
+				2BC46A3324A7EFDC003A950E /* sportsViewController.m in Sources */,
 				2B0FB84324A554FD007D586A /* PhotoCell.m in Sources */,
 				2B0FB84024A54FC4007D586A /* PhotosViewController.m in Sources */,
 				2B0FB81924A54F23007D586A /* main.m in Sources */,

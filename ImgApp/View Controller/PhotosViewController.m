@@ -11,7 +11,9 @@
 
 @interface PhotosViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (nonatomic, strong) NSArray *posts;
+@property (nonatomic, strong) NSArray *photos;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property (nonatomic, strong) NSIndexPath *tappedCell;
 
 @end
 
@@ -22,8 +24,14 @@
     [super viewDidLoad];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    // Do any additional setup after loading the view.
-    NSURL *url = [NSURL URLWithString:@"https://api.tumblr.com/v2/blog/humansofnewyork.tumblr.com/posts/photo?api_key=Q6vHoaVm5L1u2ZAW1fqv3Jw48gFzYVg9P0vH0VHl3GVy6quoGV"];
+    [self getPhotos];
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(getPhotos) forControlEvents:UIControlEventValueChanged];
+    [self.tableView insertSubview:self.refreshControl atIndex:0];}
+
+-(void)getPhotos{
+    NSURL *url = [NSURL URLWithString:@"https://api.unsplash.com/search/photos?client_id=Ec9eafeTzXptIlIZB23tNG9S5hAnvLhnisczHUYOTF4&page=1,6&query=animal&ordered_latest&orientation=landscape&per_page=100"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
@@ -32,44 +40,53 @@
             }
             else {
                 NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-                NSDictionary *responseDictionary = dataDictionary[@"response"];
-                // Store the returned array of dictionaries in our posts property
-                self.posts = responseDictionary[@"posts"];
+                if(dataDictionary[@"results"] != NULL)
+                    self.photos = dataDictionary[@"results"];
                 [self.tableView reloadData];
-
-                // TODO: Get the posts and store in posts property
-                // TODO: Reload the table view
             }
-        
+         [self.refreshControl endRefreshing];
         }];
     [task resume];
 }
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.posts.count;
+    return self.photos.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     PhotoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PhotoCell"];
-    NSDictionary *post = self.posts[indexPath.row];
-    NSArray *photos = post[@"photos"];
-    if (photos) {
-        NSDictionary *photo = photos[0];
-        NSDictionary *originalSize =  photo[@"original_size"];
-        NSString *urlString = originalSize[@"url"];
-        NSURL *url = [NSURL URLWithString:urlString];
+    NSDictionary *photo = self.photos[indexPath.row];
+    if (photo) {
+        NSString *image =photo[@"urls"][@"regular"];
+        NSURL *url = [NSURL URLWithString:image];
+        
         cell.PhotoView.image = nil;
         [cell.PhotoView setImageWithURL:url];
+        image = photo[@"user"][@"profile_image"][@"medium"];
+        url = [NSURL URLWithString:image];
+        
+        [cell.profileImage setImageWithURL:url];
+        cell.nameLabel.text= photo[@"user"][@"name"];
+        cell.usernameLabel.text= photo[@"user"][@"username"];
+        cell.portfolioLabel.text= photo[@"alt_description"];
     }
     return cell;
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.tappedCell == NULL || self.tappedCell != indexPath)
+        self.tappedCell = indexPath;
+    else
+        self.tappedCell = NULL;
+    [UIView animateWithDuration:0.5 animations:^{
+    [tableView beginUpdates];
+        [tableView endUpdates];}];
 }
-*/
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath == self.tappedCell)
+        return 400;
+    else
+        return 238;
+}
 
 @end
